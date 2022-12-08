@@ -1,26 +1,20 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { Modal } from "antd";
 
 const GreetingModal = () => {
-	const [show, setShow] = useState(true);
-
-	const handleClose = () => setShow(false);
-
+	const [isOpen, setIsOpen] = useState<boolean>(true);
+	const handleClose = () => setIsOpen(false);
 	return (
-		<>
-			<Modal show={show} onHide={handleClose} centered>
-				<Modal.Header closeButton>
-					<Modal.Title>Hello!</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close
-					</Button>
-				</Modal.Footer>
-			</Modal>
-		</>
+		<Modal
+			title="Basic Modal"
+			open={isOpen}
+			onOk={handleClose}
+			onCancel={handleClose}
+		>
+			<p>Some contents...</p>
+			<p>Some contents...</p>
+			<p>Some contents...</p>
+		</Modal>
 	);
 };
 
