@@ -1,7 +1,8 @@
 import React from "react";
+import GreetingModal from "./components/GreetingModal";
 
 const App = () => {
-	return <h1>Hello world</h1>;
+	return <GreetingModal />;
 };
 
 export default App;
