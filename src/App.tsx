@@ -1,13 +1,9 @@
-import React from "react";
-import GreetingModal from "./components/GreetingModal";
-
+import Layout from "./containers/Layout";
+import { useOutlet } from "react-router-dom";
 const App = () => {
-	return (
-		<>
-			<h1>fix modal greet</h1>
-			<GreetingModal />
-		</>
-	);
+	const currentOutlet = useOutlet();
+
+	return <Layout>{currentOutlet}</Layout>;
 };
 
 export default App;
