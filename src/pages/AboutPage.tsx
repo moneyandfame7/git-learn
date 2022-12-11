@@ -1,7 +1,12 @@
+import { Spin } from "antd";
 import React from "react";
 
 const AboutPage = () => {
-	return <h5>ABOUT PAGE</h5>;
+	return (
+		<div style={{ display: "flex", justifyContent: "center" }}>
+			<Spin />
+		</div>
+	);
 };
 
 export default AboutPage;
