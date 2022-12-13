@@ -1,22 +1,35 @@
 import React, { FC, useState } from "react";
-import { Link } from "react-router-dom";
-import { routesConfig } from "../routesConfig";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { routesConfig } from "../utils/routesConfig";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
+import { ItemType } from "antd/es/menu/hooks/useItems";
 const { Header, Sider, Content } = Layout;
-
-const items = routesConfig.map((item, index) => {
-	return {
-		key: index,
-		label: <Link to={item.path}>{item.label}</Link>,
-		icon: item.icon
-	};
-});
 
 interface IMyLayoutProps {
 	children?: React.ReactElement | null;
 }
+const items = routesConfig.map((item, index) => {
+	if (item.path !== "*") {
+		return {
+			key: item.id,
+			label: <Link to={item.path}>{item.label}</Link>,
+			icon: item.icon
+		};
+	}
+});
 const MyLayout: FC<IMyLayoutProps> = ({ children }) => {
+	const selectedKey = useLocation().pathname;
+
+	const highlight = () => {
+		if (selectedKey === "/") {
+			return ["0"];
+		} else if (selectedKey === "/contacts") {
+			return ["1"];
+		} else {
+			return ["2"];
+		}
+	};
 	const [collapsed, setCollapsed] = useState(false);
 	const {
 		token: { colorBgContainer }
@@ -34,8 +47,9 @@ const MyLayout: FC<IMyLayoutProps> = ({ children }) => {
 				<Menu
 					theme="dark"
 					mode="inline"
+					items={items as ItemType[]}
 					defaultSelectedKeys={["0"]}
-					items={items}
+					selectedKeys={highlight()}
 				/>
 			</Sider>
 			<Layout className="site-layout">
@@ -55,7 +69,8 @@ const MyLayout: FC<IMyLayoutProps> = ({ children }) => {
 						padding: 24,
 						minHeight: 280,
 						background: colorBgContainer,
-						overflowY: "auto"
+						overflowY: "auto",
+						paddingBottom: "50px"
 					}}
 				>
 					<h1
